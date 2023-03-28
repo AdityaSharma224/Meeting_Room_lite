@@ -4,9 +4,9 @@
   "description": "- Initialize the Node Js project\r  - \r - Initialize the First view Point\r - create a room ID\r - Add the ability to view our own video\r - add ability to allow others to stream their video\r - add styling\r - add the ability to create messages\r - add the mute button\r - add stop video button",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build":"react-scripts build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
     
   },
   "author": "",
