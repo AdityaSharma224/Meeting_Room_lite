@@ -10,8 +10,8 @@ body{
 
 
 video{
-    height: 300px;
-    width:400px;
+    height: 400px;
+    width:500px;
     object-fit: cover;
 }
 
@@ -25,9 +25,7 @@ video{
     display: flex;
     flex-direction: column;
 }
-.right_section{
-    flex:0.2;
-}
+
 
 .main_video{
     flex-grow: 1;
@@ -68,16 +66,23 @@ video{
     background-color: #3a3a3a;
     border-radius: 5px;
 }
-.leave_meeting{
-    color:#EB534B;
+.main_control_block .leave_meeting{
+    color:#ffffff;
+    background-color: #ec281e;
 }
 
 .right_section{
+    flex:0.2;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     background-color: #242324;
     border-left: 1px solid #303042;
+    
+
 }
+  
+  
 .main_header{
     color:#F5F5F5;
     text-align: center;

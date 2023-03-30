@@ -1,0 +1,6 @@
+{
+    "version": 2,
+    "name": "video-calling-app",
+    "builds": [{ "src": "server.js", "use": "@vercel/node" }],
+    "routes": [{ "src": "/(.*)", "dest": "/server.js" }]
+  }

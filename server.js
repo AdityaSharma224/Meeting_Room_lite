@@ -28,9 +28,12 @@ io.on('connection', socket =>{
         socket.broadcast.to(roomId).emit('user-connected',userId);// any other user connected with room
         socket.on('message',message=>{
             io.to(roomId).emit('createMessage',message)
-        })
+        });
+        socket.on('user-disconnected', userId => {
+            if (peers[userId]) peers[userId].close()
+          })
     })
 })
 
-server.listen(process.env.PORT||433); // local host server 3030
+server.listen(process.env.PORT||433); // local host server 433
 

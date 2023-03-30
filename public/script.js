@@ -12,7 +12,7 @@ var myPeer = new Peer(undefined,{
     host:'/',
     port:'433'
 });
-
+const peers = {};
 let myVideoStream;
 
 //ability to fetch video and audio functions with getUserMedia promise
@@ -54,6 +54,9 @@ navigator.mediaDevices.getUserMedia({
 
 });
 
+socket.on('user-disconnected', userId => {
+    if (peers[userId]) peers[userId].close()
+  })
 
 myPeer.on('open',id => {
     socket.emit('join-room',ROOM_ID, id);// room id which we have to join
@@ -67,6 +70,11 @@ const connectToNewUser = (userId, stream) =>{
     call.on('stream',userVideoStream =>{
         addVideoStream(video,userVideoStream) // adding a new user to our stream
     })
+
+    call.on('close',()=>{
+        video.remove();
+    })
+    peers[userId] = call;
 }
   
 
@@ -142,4 +150,27 @@ const setPlayVideo = () =>{
     `
 
     document.querySelector('.main_video_button').innerHTML = html;
+}
+
+
+const leaveMeet = () =>{
+    const leaveMeeting = document.querySelector('.leave_meeting');
+
+    leaveMeeting.addEventListener('click', () => {
+        myPeer.destroy();
+        socket.emit('leave-room');
+        const tracks = myVideoStream.getTracks();
+
+        // Stop all tracks
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+
+        // If there is only one user (me), close the window
+        if(Object.keys(peers).length == 0) {
+            window.close();
+        }
+        
+     
+    });
 }
