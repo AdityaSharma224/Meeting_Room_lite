@@ -18,7 +18,7 @@ let myVideoStream;
 //ability to fetch video and audio functions with getUserMedia promise
 navigator.mediaDevices.getUserMedia({  
     video:true,
-    audio:true
+    audio:false
 }).then(stream =>{
     myVideoStream = stream; // we are executing video streaming
     addVideoStream(myVideo,stream);
@@ -90,17 +90,20 @@ const addVideoStream = (video, stream) =>{
 }
 
 const muteUnmute = () => {
-    const enabled = myVideoStream.getAudioTracks()[0].enabled;
-
-    if(enabled)
-    {
-        myVideoStream.getAudioTracks()[0].enabled=false;
-        setUnMuteButton();
-    }else{
-        setMuteButton();
-        myVideoStream.getAudioTracks()[0].enabled=true;
+    if (myVideoStream && myVideoStream.getAudioTracks().length > 0) {
+        const enabled = myVideoStream.getAudioTracks()[0].enabled;
+        if (enabled) {
+            myVideoStream.getAudioTracks()[0].enabled = false;
+            setUnMuteButton();
+        } else {
+            myVideoStream.getAudioTracks()[0].enabled = true;
+            setMuteButton();
+        }
+    } else {
+        console.warn('No audio track available to mute/unmute.');
     }
-}
+};
+
 
 const setMuteButton = () =>{
     const html =   `
